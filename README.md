@@ -20,7 +20,7 @@ A modern meme marketplace where users can create, bid, upvote, and get AI-genera
 - **🤖 AI Captions & Vibes**: Generate witty captions and “vibe” descriptions (stubbed with fallback; replace with real API if available).
 - **🔍 Search & Grid View**: Search by title or tags; always shows grid layout.
 - **🔒 Mock Authentication**: Random UUID per session stored in localStorage to identify users.
-- **🎨 Modern UI**: Responsive, dark-themed with Tailwind CSS, clean cards, search bar, loading states.
+- **🎨 Modern UI**: Responsive, clean cards, search bar, loading states.
 
 ---
 

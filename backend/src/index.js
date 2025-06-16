@@ -26,12 +26,3 @@ const io = initSocket(server);
 server.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
-
-/* Note: You may need to create a Supabase function 'increment_upvotes' like:
-CREATE OR REPLACE FUNCTION increment_upvotes(p_meme_id uuid, p_delta int)
-RETURNS void LANGUAGE plpgsql AS $$
-BEGIN
-  UPDATE memes SET upvotes = upvotes + p_delta WHERE id = p_meme_id;
-END;
-$$;
-*/

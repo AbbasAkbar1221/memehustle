@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { TrendingUp, Users, Tag, Crown } from 'lucide-react';
 import BidPanel from './BidPanel';
 import VoteButtons from './VoteButtons';
 import AIButtons from './AIButtons';
@@ -22,27 +23,70 @@ export default function MemeCard({ meme, userId }) {
   }, [meme]);
 
   return (
-    <div className="bg-gray-900 p-4 rounded-lg shadow-lg flex flex-col">
-      <img
-        src={meme.image_url}
-        alt={meme.title}
-        onError={(e) => { e.target.onerror = null; e.target.src = 'https://via.placeholder.com/300x200?text=No+Image'; }}
-        className="w-full h-48 object-cover rounded"
-      />
-      <h2 className="mt-2 text-lg font-bold text-neonBlue">{meme.title}</h2>
-      <div className="flex flex-wrap mt-1">
-        {meme.tags.map((tag, idx) => (
-          <span key={idx} className="text-xs mr-2 bg-gray-800 px-2 py-1 rounded">#{tag}</span>
+    <div className="group bg-white rounded-2xl shadow-card hover:shadow-cardHover transition-all duration-300 transform hover:-translate-y-2 p-6 animate-fade-in">
+      <div className="relative w-full h-56 mb-4 overflow-hidden rounded-xl bg-gradient-to-br from-gray-100 to-gray-200">
+        <img
+          src={meme.image_url}
+          alt={meme.title}
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = 'https://images.pexels.com/photos/1089438/pexels-photo-1089438.jpeg?auto=compress&cs=tinysrgb&w=400';
+          }}
+          className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      </div>
+
+      <h2 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-primary-600 transition-colors duration-200">
+        {meme.title}
+      </h2>
+
+      <div className="flex flex-wrap gap-2 mb-4">
+        {meme.tags.slice(0, 3).map((tag, idx) => (
+          <span
+            key={idx}
+            className="inline-flex items-center gap-1 px-3 py-1 bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-700 text-xs font-medium rounded-full border border-blue-200"
+          >
+            <Tag className="w-3 h-3" />
+            {tag}
+          </span>
         ))}
+        {meme.tags.length > 3 && (
+          <span className="inline-flex items-center px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full">
+            +{meme.tags.length - 3} more
+          </span>
+        )}
       </div>
-      <div className="mt-2 flex-1">
-        {highestBid != null ? (
-          <p className="text-sm">Highest Bid: <span className="text-neonGreen">{highestBid}</span></p>
-        ) : <p className="text-sm">No bids yet</p>}
+
+      <div className="flex items-center justify-between mb-6 p-3 bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl">
+        <div className="flex items-center gap-2">
+          {highestBid != null ? (
+            <>
+              <Crown className="w-4 h-4 text-yellow-500" />
+              <span className="text-sm font-semibold text-gray-700">
+                Highest: <span className="text-green-600">${highestBid}</span>
+              </span>
+            </>
+          ) : (
+            <>
+              <Crown className="w-4 h-4 text-gray-400" />
+              <span className="text-sm text-gray-500">No bids yet</span>
+            </>
+          )}
+        </div>
+        <div className="flex items-center gap-2">
+          <TrendingUp className="w-4 h-4 text-blue-500" />
+          <span className="text-sm font-semibold text-gray-700">
+            {meme.upvotes || 0} votes
+          </span>
+        </div>
       </div>
-      <BidPanel memeId={meme.id} userId={userId} onBidSuccess={fetchHighestBid} />
-      <VoteButtons memeId={meme.id} />
-      <AIButtons tags={meme.tags} />
+
+      <div className="space-y-3">
+        <BidPanel memeId={meme.id} userId={userId} onBidSuccess={fetchHighestBid} />
+        <VoteButtons memeId={meme.id} />
+        <AIButtons tags={meme.tags} />
+      </div>
     </div>
   );
 }

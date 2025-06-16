@@ -10,7 +10,6 @@ async function generateCaption(tags) {
   if (cached) return cached;
   if (GEMINI_API_KEY) {
     try {
-      // Placeholder: actual Gemini API call depends on API spec
       const response = await axios.post('https://gemini.api.endpoint/generate', {
         prompt: `Generate a witty meme caption based on tags: ${tags.join(', ')}`
       }, {

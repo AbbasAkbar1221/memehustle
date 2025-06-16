@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const supabase = require('../db/supabaseClient');
 
-// Create meme: expects { title, image_url, tags: [] , owner_id }
 router.post('/', async (req, res) => {
   const { title, image_url, tags, owner_id } = req.body;
   if (!title || !image_url || !owner_id) {
@@ -17,7 +16,6 @@ router.post('/', async (req, res) => {
   res.json(data);
 });
 
-// Get all memes
 router.get('/', async (req, res) => {
   const { data, error } = await supabase
     .from('memes')
@@ -27,7 +25,7 @@ router.get('/', async (req, res) => {
   res.json(data);
 });
 
-// Get single meme by id
+
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
   const { data, error } = await supabase

@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const supabase = require('../db/supabaseClient');
 
-// Place bid: { meme_id, user_id, credits }
 router.post('/', async (req, res) => {
   const { meme_id, user_id, credits } = req.body;
   if (!meme_id || !user_id || credits == null) {
@@ -18,7 +17,6 @@ router.post('/', async (req, res) => {
   res.json(data);
 });
 
-// Get bids for a meme
 router.get('/:meme_id', async (req, res) => {
   const { meme_id } = req.params;
   const { data, error } = await supabase

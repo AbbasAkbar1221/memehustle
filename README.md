@@ -145,8 +145,6 @@ npm install
 ## Frontend on Vercel
 - Connect repo to Vercel.
 
-- Framework Preset: Vite (auto-detected).
-
 - Build Command:
 ```bash
 npm run build

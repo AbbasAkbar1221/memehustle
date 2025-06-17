@@ -7,7 +7,6 @@ function initSocket(server) {
   });
 
   io.on('connection', (socket) => {
-    console.log('New client connected:', socket.id);
     socket.on('join', () => {});
     socket.on('bidPlaced', (data) => {
       io.emit('bidUpdate', data);

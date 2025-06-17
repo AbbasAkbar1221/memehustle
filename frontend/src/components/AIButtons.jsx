@@ -13,7 +13,7 @@ export default function AIButtons({ tags }) {
     setLoadingCaption(true);
     try {
       const res = await api.post('/ai/caption', { tags });
-      setCaption(res.data.caption);
+      setCaption(res.data.data.caption);
     } catch (err) {
       console.error(err);
       alert('Error fetching caption');
@@ -27,7 +27,7 @@ export default function AIButtons({ tags }) {
     setLoadingVibe(true);
     try {
       const res = await api.post('/ai/vibe', { tags });
-      setVibe(res.data.vibe);
+      setVibe(res.data.data.vibe);
     } catch (err) {
       console.error(err);
       alert('Error fetching vibe');

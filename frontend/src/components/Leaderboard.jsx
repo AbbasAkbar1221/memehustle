@@ -103,6 +103,15 @@ export default function Leaderboard() {
                   {meme.title}
                 </h3>
               </div>
+               {idx < 3 && (
+                <div className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                  idx === 0 ? 'bg-yellow-100 text-yellow-800' :
+                  idx === 1 ? 'bg-gray-100 text-gray-800' :
+                  'bg-amber-100 text-amber-800'
+                }`}>
+                  {idx === 0 ? '🥇 Champion' : idx === 1 ? '🥈 Runner-up' : '🥉 Third Place'}
+                </div>
+              )}
               <div className="text-right">
                 <div className="flex items-center gap-2 text-2xl font-bold text-primary-600">
                   <TrendingUp className="w-6 h-6" />
@@ -112,16 +121,6 @@ export default function Leaderboard() {
                   {meme.upvotes === 1 ? 'vote' : 'votes'}
                 </p>
               </div>
-
-              {idx < 3 && (
-                <div className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                  idx === 0 ? 'bg-yellow-100 text-yellow-800' :
-                  idx === 1 ? 'bg-gray-100 text-gray-800' :
-                  'bg-amber-100 text-amber-800'
-                }`}>
-                  {idx === 0 ? '🥇 Champion' : idx === 1 ? '🥈 Runner-up' : '🥉 Third Place'}
-                </div>
-              )}
             </div>
           ))}
         </div>

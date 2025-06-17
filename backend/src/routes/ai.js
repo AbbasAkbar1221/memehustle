@@ -1,19 +1,23 @@
 const express = require('express');
 const router = express.Router();
-const { generateCaption, generateVibe } = require('../services/aiService');
+const { getCaption, getVibe } = require('../controllers/ai');
 
-router.post('/caption', async (req, res) => {
-  const { tags } = req.body;
-  if (!Array.isArray(tags)) return res.status(400).json({ error: 'Invalid tags' });
-  const caption = await generateCaption(tags);
-  res.json({ caption });
+const rateLimit = require('express-rate-limit');
+
+const aiRateLimit = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100, 
+  message: {
+    status: 'error',
+    message: 'Too many AI requests, please try again later'
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
 });
 
-router.post('/vibe', async (req, res) => {
-  const { tags } = req.body;
-  if (!Array.isArray(tags)) return res.status(400).json({ error: 'Invalid tags' });
-  const vibe = await generateVibe(tags);
-  res.json({ vibe });
-});
+router.use(aiRateLimit);
+
+router.post('/caption', getCaption);
+router.post('/vibe', getVibe);
 
 module.exports = router;
